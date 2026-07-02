@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle, #3a0000 0%, #1a0000 100%);
+        }
+
+        .calculator {
+            background-color: #8B0000; /* สีแดงเข้มหลัก */
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 
+                        inset 0 2px 5px rgba(255, 255, 255, 0.2);
+            width: 340px;
+        }
+
+        /* ช่องแสดงผล */
+        .display {
+            width: 100%;
+            height: 70px;
+            background-color: #ffd1d1; /* สีชมพูอ่อนเพื่อให้สบายตาและตัดกับตัวเลข */
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: right;
+            padding: 15px;
+            font-size: 2rem;
+            color: #200000;
+            font-weight: bold;
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* โซนปุ่มกด */
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            padding: 18px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            border: none;
+            outline: none;
+            border-radius: 12px;
+            cursor: pointer;
+            color: white;
+            background-color: #FF3333; /* ปุ่มสีแดงสด */
+            box-shadow: 0 4px #cc0000, 0 4px 6px rgba(0,0,0,0.4);
+            transition: all 0.1s ease;
+        }
+
+        /* เอฟเฟกต์ตอนกดปุ่ม */
+        button:active {
+            box-shadow: 0 0 #cc0000, 0 2px 4px rgba(0,0,0,0.4);
+            transform: translateY(4px);
+        }
+
+        /* ปรับแต่งสีปุ่มพิเศษ */
+        button.operator {
+            background-color: #D22B2B; /* แดงโทนเครื่องหมาย */
+            box-shadow: 0 4px #990000;
+        }
+        button.operator:active { box-shadow: 0 0 #990000; }
+
+        button.clear {
+            background-color: #FF6666; /* สีแดงอ่อนสำหรับล้างค่า */
+            box-shadow: 0 4px #cc4444;
+        }
+        button.clear:active { box-shadow: 0 0 #cc4444; }
+
+        button.equal {
+            background-color: #4a0000; /* สีแดงมืดสุดสำหรับเครื่องหมายเท่ากับ */
+            box-shadow: 0 4px #250000;
+            grid-column: span 2; /* ขยายปุ่มให้กว้าง 2 ช่อง */
+        }
+        button.equal:active { box-shadow: 0 0 #250000; }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <input type="text" class="display" id="result" readonly placeholder="0">
+        
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button class="operator" onclick="backspace()">⌫</button>
+            <button class="operator" onclick="appendValue('/')">÷</button>
+            <button class="operator" onclick="appendValue('*')">×</button>
+            
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button class="operator" onclick="appendValue('-')">-</button>
+            
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button class="operator" onclick="appendValue('+')">+</button>
+            
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="appendValue('.')">.</button>
+            
+            <button onclick="appendValue('0')">0</button>
+            <button class="equal" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('result');
+
+        // เพิ่มตัวเลขหรือเครื่องหมายบนจอ
+        function appendValue(value) {
+            if (display.value === 'Error') display.value = '';
+            display.value += value;
+        }
+
+        // ล้างหน้าจอทั้งหมด (C)
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        // ลบตัวอักษรล่าสุดทีละตัว (Backspace)
+        function backspace() {
+            if (display.value === 'Error') {
+                display.value = '';
+            } else {
+                display.value = display.value.slice(0, -1);
+            }
+        }
+
+        // คำนวณผลลัพธ์
+        function calculate() {
+            try {
+                // เปลี่ยนเครื่องหมายเพื่อให้สอดคล้องกับระบบคำนวณ (ถ้ามี)
+                let expression = display.value;
+                if (expression) {
+                    let result = eval(expression);
+                    display.value = result;
+                }
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+
+        // รองรับการกดปุ่มบน Keyboard จริงๆ
+        document.addEventListener('keydown', function(event) {
+            const key = event.key;
+            if (/[0-9\+\-\*\/\.]/.test(key)) {
+                appendValue(key);
+            } else if (key === 'Enter' || key === '=') {
+                calculate();
+            } else if (key === 'Backspace') {
+                backspace();
+            } else if (key === 'Escape') {
+                clearDisplay();
+            }
+        });
+    </script>
+</body>
+</html>
