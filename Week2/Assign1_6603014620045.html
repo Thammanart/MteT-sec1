@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Profile</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a; /* พื้นหลังสีเข้ม */
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .profile-card {
+            background-color: #262626; /* สีการ์ดโปรไฟล์ */
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            padding: 30px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        /* โซนรูปภาพโปรไฟล์ */
+        .profile-img-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #e65c00; /* ขอบสีส้มอิฐ */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: #e65c00;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bio-section {
+            background-color: #1f1f1f;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: left;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cccccc;
+        }
+
+        .bio-section p {
+            margin-bottom: 8px;
+        }
+
+        .bio-section p strong {
+            color: #fff;
+        }
+
+        /* ปุ่ม URL ลิงก์ภายนอก */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-link {
+            display: block;
+            padding: 12px;
+            background-color: #e65c00;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .btn-link:hover {
+            background-color: #ff6e14;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background-color: #404040;
+        }
+
+        .btn-secondary:hover {
+            background-color: #505050;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-card">
+        <div class="profile-img-container">
+            <img src="avatar.jpg" alt="Profile Picture" onerror="this.src='https://via.placeholder.com/150/e65c00/ffffff?text=My+Photo'">
+        </div>
+
+        <h1>ชื่อ - นามสกุล ของคุณ</h1>
+        <div class="subtitle">Engineering Student / Maker</div>
+
+        <div class="bio-section">
+            <p><strong>ความสนใจ:</strong> Automation, Hardware Integration & AI</p>
+            <p><strong>ทักษะหลัก:</strong> Python, Microcontrollers, Git</p>
+            <p><strong>โปรเจกต์ปัจจุบัน:</strong> กำลังพัฒนาและจัดการระบบ Private Web Service</p>
+        </div>
+
+        <div class="links-container">
+            <a href="https://github.com/your-username" target="_blank" class="btn-link">
+                🌐 Visit My GitHub Profile
+            </a>
+            
+            <a href="https://linkedin.com" target="_blank" class="btn-link btn-secondary">
+                💼 Connect on LinkedIn
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
